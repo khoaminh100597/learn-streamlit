@@ -24,9 +24,9 @@ app_mode = st.sidebar.selectbox('Select Page', ['Home', 'Prediction'])
 
 if app_mode == 'Home':
     st.title('LOAN PREDICTION: ')
-    st.image(rf'./loan_image.jpg')
+    st.image(rf'.\datacamp\loan_image.jpg')
     st.markdown('Dataset: ')
-    data = pd.read_csv('./loan_dataset.csv')
+    data = pd.read_csv('.\datacamp\loan_dataset.csv')
     st.write(data.head())
     st.markdown('Applicant Income vs Loan Amount')
     st.bar_chart(data[['ApplicantIncome','LoanAmount']].head(20))
