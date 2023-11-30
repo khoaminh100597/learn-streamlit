@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from datetime import time, datetime
+from datetime import time, datetime, date
+from io import StringIO
 
 # st.button()
 st.button('Reset', type='primary')
@@ -146,3 +147,74 @@ st.divider()
 title = st.text_input('Movie title', 'Life of Brian')
 if title:
     st.write('The current movie title is ', title)
+
+st.divider()
+
+# st.number_input()
+number = st.number_input('Insert a number', placeholder='Type a number...', value=None)
+if number:
+    st.write('The current number is ', number)
+
+st.divider()
+
+# st.text_area()
+txt = st.text_area(
+    "Text to analyze",
+    "It was the best of times, it was the worst of times, it was the age of "
+    "wisdom, it was the age of foolishness, it was the epoch of belief, it "
+    "was the epoch of incredulity, it was the season of Light, it was the "
+    "season of Darkness, it was the spring of hope, it was the winter of "
+    "despair, (...)",
+)
+st.write('You write ', len(txt), 'characters')
+
+# st.date_input()
+today = datetime.now()
+next_year = today.year + 1
+jan_1 = date(next_year, 1, 1)
+dec_31 = date(next_year, 12, 31)
+
+d = st.date_input(
+    "Select your vacation for next year",
+    (jan_1, date(next_year, 1, 7)),
+    jan_1,
+    dec_31,
+    format="MM.DD.YYYY",
+)
+if len(d) == 2 and d[0] != d[1]:
+    st.write('Vacation is from', d[0], 'to', d[1])
+
+# st.time_input()
+t = st.time_input('Set an alarm for', time(8, 45))
+st.write('Alarm is set for ', t)
+
+st.divider()
+
+# st.file_uploader()
+uploaded_file = st.file_uploader('Choose a file')
+if uploaded_file is not None:
+    # To read file as bytes
+    bytes_data = uploaded_file.get_value()
+    st.write(bytes_data)
+
+    # To convert to a string based IO
+    stringio = StringIO(uploaded_file.getvalue().decode('utf-8'))
+    st.write(stringio)
+
+    # To read file as string
+    string_data = stringio.read()
+    st.write(string_data)
+
+st.divider()
+
+# st.camera_input()
+picture = st.camera_input('Take a picture')
+
+if picture:
+    st.image(picture)
+
+st.divider()
+
+# st.color_picker()
+color = st.color_picker('Pick a color', '#00f900')
+st.write('The current color is ', color)
